@@ -21,17 +21,33 @@ const CACHE_ARRAY = [
     }
 ]
 
-// Install Service Workers
+// Install a single cached Service Workers
+// self.addEventListener('install', function(event) {
+//     // Perform install steps
+//     event.waitUntil(
+//         caches.open(CACHE_NAME)
+//             .then(function(cache) {
+//                 console.log('Opened cache');
+//                 return cache.addAll(urlsToCache);
+//             })
+//     );
+//     self.skipWaiting();
+// });
+
+// Install multiple cached service workers
 self.addEventListener('install', function(event) {
     // Perform install steps
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(function(cache) {
-                console.log('Opened cache');
-                return cache.addAll(urlsToCache);
+    event.waitUntil( Promise.all(
+            CACHE_ARRAY.map(function(cacheToAdd) {
+                caches.open(cacheToAdd.name)
+                    .then(function(cache) {
+                        console.log('Opened cache');
+                        return cache.addAll(cacheToAdd.urls);
+                    });
             })
+        )
     );
-    self.skipWaiting();
+    // self.skipWaiting();
 });
 
 // Cache and return requests
@@ -66,3 +82,20 @@ self.addEventListener('fetch', function(event) {
             })
     );
 });
+
+// Use the activate event to control caching
+// self.addEventListener('activate', function(event) {
+//     var cacheAllowlist = ['hello-world', 'about-us'];
+
+//     event.waitUntil(
+//         caches.keys().then(function(cacheNames) {
+//             return Promise.all(
+//                 cacheNames.map(function(cacheName) {
+//                     if (cacheAllowlist.indexOf(cacheName) === -1) {
+//                         return caches.delete(cacheName);
+//                     }
+//                 })
+//             );
+//         })
+//     );
+// });
