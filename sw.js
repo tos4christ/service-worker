@@ -31,6 +31,7 @@ self.addEventListener('install', function(event) {
                 return cache.addAll(urlsToCache);
             })
     );
+    self.skipWaiting();
 });
 
 // Cache and return requests
