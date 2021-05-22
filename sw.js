@@ -41,7 +41,7 @@ self.addEventListener('install', function(event) {
     // Perform install steps
     event.waitUntil( Promise.all(
             CACHE_ARRAY.map(function(cacheToAdd) {
-                caches.open(cacheToAdd.name)
+                return caches.open(cacheToAdd.name)
                     .then(function(cache) {
                         console.log('Opened cache');
                         return cache.addAll(cacheToAdd.urls);
@@ -73,7 +73,7 @@ self.addEventListener('fetch', function(event) {
                         // to clone it so we have two streams.
                         var responseToCache = response.clone();
 
-                        caches.open(CACHE_NAME)
+                        caches.open(CACHE_ARRAY[0].name)
                             .then(function(cache) {
                                 cache.put(event.request, responseToCache);
                             });
