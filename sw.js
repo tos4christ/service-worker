@@ -10,13 +10,15 @@ const CACHE_ARRAY = [
     {
         name: 'hello-world',
         urls: [
-            '/hello-world.html'
+            '/hello-world.html',
+            '/index.css'
         ]
     },
     {
         name: 'about-us',
         urls: [
-            '/about-us.html'
+            '/about-us.html',
+            '/index.css'
         ]
     }
 ]
@@ -84,18 +86,18 @@ self.addEventListener('fetch', function(event) {
 });
 
 // Use the activate event to control caching
-// self.addEventListener('activate', function(event) {
-//     var cacheAllowlist = ['hello-world', 'about-us'];
+self.addEventListener('activate', function(event) {
+    var cacheAllowlist = ['hello-world', 'about-us'];
 
-//     event.waitUntil(
-//         caches.keys().then(function(cacheNames) {
-//             return Promise.all(
-//                 cacheNames.map(function(cacheName) {
-//                     if (cacheAllowlist.indexOf(cacheName) === -1) {
-//                         return caches.delete(cacheName);
-//                     }
-//                 })
-//             );
-//         })
-//     );
-// });
+    event.waitUntil(
+        caches.keys().then(function(cacheNames) {
+            return Promise.all(
+                cacheNames.map(function(cacheName) {
+                    if (cacheAllowlist.indexOf(cacheName) === -1) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
+    );
+});
