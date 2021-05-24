@@ -8,14 +8,14 @@ const urlsToCache = [
 ];
 const CACHE_ARRAY = [
     {
-        name: 'hello-world',
+        name: 'extend-hello-world',
         urls: [
             '/hello-world.html',
             '/index.css'
         ]
     },
     {
-        name: 'about-us',
+        name: 'extend-about-us',
         urls: [
             '/about-us.html',
             '/index.css'
