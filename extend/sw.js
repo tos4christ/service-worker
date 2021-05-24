@@ -10,14 +10,14 @@ const CACHE_ARRAY = [
     {
         name: 'extend-hello-world',
         urls: [
-            '/hello-world.html',
+            '/extend/hello-world.html',
             '/index.css'
         ]
     },
     {
         name: 'extend-about-us',
         urls: [
-            '/about-us.html',
+            '/extend/about-us.html',
             '/index.css'
         ]
     }
@@ -76,8 +76,7 @@ self.addEventListener('fetch', function(event) {
                         caches.open(CACHE_ARRAY[0].name)
                             .then(function(cache) {
                                 cache.put(event.request, responseToCache);
-                            });
-                        
+                            });                        
                         return response;
                     }
                 );
@@ -87,7 +86,7 @@ self.addEventListener('fetch', function(event) {
 
 // Use the activate event to control caching
 self.addEventListener('activate', function(event) {
-    var cacheAllowlist = ['hello-world', 'about-us'];
+    var cacheAllowlist = ['extend-hello-world', 'extend-about-us'];
 
     event.waitUntil(
         caches.keys().then(function(cacheNames) {
