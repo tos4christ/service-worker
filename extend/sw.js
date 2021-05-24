@@ -49,7 +49,7 @@ self.addEventListener('install', function(event) {
             })
         )
     );
-    // self.skipWaiting();
+    self.skipWaiting();
 });
 
 // Cache and return requests
