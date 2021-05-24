@@ -43,7 +43,7 @@ self.addEventListener('install', function(event) {
             CACHE_ARRAY.map(function(cacheToAdd) {
                 return caches.open(cacheToAdd.name)
                     .then(function(cache) {
-                        console.log('Opened cache');
+                        console.log('Opened cache now');
                         return cache.addAll(cacheToAdd.urls);
                     });
             })
